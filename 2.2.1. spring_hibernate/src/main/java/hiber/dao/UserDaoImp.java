@@ -22,29 +22,21 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> listUsers() {
+    public List<User> getUsersList() {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
         return query.getResultList();
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Car> users_car() {
-        TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery("from Car");
-        return query.getResultList();
+    public User findUser(String car_name, int car_series) {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        List<User> findCarList = query.getResultList();
+        for (User user : findCarList) {
+            if (user.getUserCar().getModel().equals(car_name)
+                    && user.getUserCar().getSeries() == car_series) {
+                return user;
+            }
+        }
+        return null;
     }
-
-   @Override
-   public User findUser(String car_name, int car_series) {
-       TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
-       List<User> findCarList = query.getResultList();
-
-       for (User user : findCarList) {
-           if (user.getUserCar().getModel().equals(car_name)
-                   && user.getUserCar().getSeries() == car_series) {
-               return user;
-           }
-       }
-       return null;
-   }
 }

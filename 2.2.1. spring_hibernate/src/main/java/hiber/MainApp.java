@@ -16,12 +16,6 @@ public class MainApp {
 
         UserService userService = context.getBean(UserService.class);
 
-//      userService.add(new User("User1", "Lastname1", "user1@mail.ru");
-//      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
-//      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
-//      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
-
-
         User user1 = new User("Ivan", "Klimov", "ivan@mail.ru");
         User user2 = new User("Igor", "Belov", "igor@mail.ru");
         User user3 = new User("Stepan", "Smirnov", "stepan@mail.ru");
@@ -37,15 +31,7 @@ public class MainApp {
         userService.add(user3);
         userService.add(user4);
 
-        List<Car> users_car = userService.users_car();
-
-        for (Car car : users_car) {
-            System.out.println("Car model = " + car.getModel());
-            System.out.println("Car series = " + car.getSeries());
-            System.out.println();
-        }
-
-        List<User> users = userService.listUsers();
+        List<User> users = userService.getUsersList();
         for (User user : users) {
             System.out.println("Id = " + user.getId());
             System.out.println("First Name = " + user.getFirstName());
