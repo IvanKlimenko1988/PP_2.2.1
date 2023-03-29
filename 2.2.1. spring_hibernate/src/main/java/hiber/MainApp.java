@@ -37,6 +37,13 @@ public class MainApp {
         userService.add(user3);
         userService.add(user4);
 
+        List<Car> users_car = userService.users_car();
+
+        for (Car car : users_car) {
+            System.out.println("Car model = " + car.getModel());
+            System.out.println("Car series = " + car.getSeries());
+            System.out.println();
+        }
 
         List<User> users = userService.listUsers();
         for (User user : users) {
@@ -48,6 +55,8 @@ public class MainApp {
             System.out.println("Car series = " + user.getUserCar().getSeries());
             System.out.println();
         }
+
+        System.out.println(userService.findUser("Mazda", 6));
 
         context.close();
     }
