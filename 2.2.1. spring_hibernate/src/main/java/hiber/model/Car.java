@@ -1,12 +1,16 @@
 package hiber.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "cars")
+@Component()
+@Scope("prototype")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +25,11 @@ public class Car {
     }
 
     public Car(@Autowired String model, int series) {
+        this.model = model;
+        this.series = series;
+    }
+
+    public void setCar(String model, int series) {
         this.model = model;
         this.series = series;
     }

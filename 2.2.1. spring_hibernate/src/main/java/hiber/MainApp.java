@@ -16,15 +16,30 @@ public class MainApp {
 
         UserService userService = context.getBean(UserService.class);
 
-        User user1 = new User("Ivan", "Klimov", "ivan@mail.ru");
-        User user2 = new User("Igor", "Belov", "igor@mail.ru");
-        User user3 = new User("Stepan", "Smirnov", "stepan@mail.ru");
-        User user4 = new User("Gleb", "Sharaopv", "gleb@mail.ru");
+        User user1 = context.getBean(User.class);
+        User user2 = context.getBean(User.class);
+        User user3 = context.getBean(User.class);
+        User user4 = context.getBean(User.class);
 
-        user1.setUserCar(new Car("Mazda", 6));
-        user2.setUserCar(new Car("Volvo", 90));
-        user3.setUserCar(new Car("BMW", 7));
-        user4.setUserCar(new Car("Lada", 21015));
+        user1.setUser("Ivan", "Klimov", "ivan@mail.ru");
+        user2.setUser("Igor", "Belov", "igor@mail.ru");
+        user3.setUser("Stepan", "Smirnov", "stepan@mail.ru");
+        user4.setUser("Gleb", "Sharapov", "gleb@mail.ru");
+
+        Car car1 = context.getBean(Car.class);
+        Car car2 = context.getBean(Car.class);
+        Car car3 = context.getBean(Car.class);
+        Car car4 = context.getBean(Car.class);
+
+        car1.setCar("Mazda", 6);
+        car2.setCar("Volvo", 90);
+        car3.setCar("BMW", 7);
+        car4.setCar("Lada", 21015);
+
+        user1.setUserCar(car1);
+        user2.setUserCar(car2);
+        user3.setUserCar(car3);
+        user4.setUserCar(car4);
 
         userService.add(user1);
         userService.add(user2);

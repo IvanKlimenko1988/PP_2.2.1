@@ -1,11 +1,17 @@
 package hiber.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+@Component()
+@Scope("prototype")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +31,13 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email) {
+    public User(@Autowired String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public void setUser(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -63,13 +75,13 @@ public class User {
         this.email = email;
     }
 
-   public Car getUserCar() {
-      return userCar;
-   }
+    public Car getUserCar() {
+        return userCar;
+    }
 
-   public void setUserCar(Car userCar) {
-      this.userCar = userCar;
-   }
+    public void setUserCar(Car userCar) {
+        this.userCar = userCar;
+    }
 
     @Override
     public String toString() {
@@ -80,5 +92,18 @@ public class User {
                 ", email='" + email + '\'' +
                 ", userCar=" + userCar +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(userCar, user.userCar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, userCar);
     }
 }
