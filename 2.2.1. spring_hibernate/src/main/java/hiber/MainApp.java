@@ -3,6 +3,7 @@ package hiber;
 import hiber.config.AppConfig;
 import hiber.model.Car;
 import hiber.model.User;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,38 +16,20 @@ public class MainApp {
                 new AnnotationConfigApplicationContext(AppConfig.class);
 
         UserService userService = context.getBean(UserService.class);
+        CarService carService = context.getBean(CarService.class);
 
-        User user1 = context.getBean(User.class);
-        User user2 = context.getBean(User.class);
-        User user3 = context.getBean(User.class);
-        User user4 = context.getBean(User.class);
+        carService.add(new Car("Mazda", 6));
+        carService.add(new Car("Volvo", 90));
+        carService.add(new Car("BMW", 7));
+        carService.add(new Car("Lada", 21015));
 
-        user1.setUser("Ivan", "Klimov", "ivan@mail.ru");
-        user2.setUser("Igor", "Belov", "igor@mail.ru");
-        user3.setUser("Stepan", "Smirnov", "stepan@mail.ru");
-        user4.setUser("Gleb", "Sharapov", "gleb@mail.ru");
-
-        Car car1 = context.getBean(Car.class);
-        Car car2 = context.getBean(Car.class);
-        Car car3 = context.getBean(Car.class);
-        Car car4 = context.getBean(Car.class);
-
-        car1.setCar("Mazda", 6);
-        car2.setCar("Volvo", 90);
-        car3.setCar("BMW", 7);
-        car4.setCar("Lada", 21015);
-
-        user1.setUserCar(car1);
-        user2.setUserCar(car2);
-        user3.setUserCar(car3);
-        user4.setUserCar(car4);
-
-        userService.add(user1);
-        userService.add(user2);
-        userService.add(user3);
-        userService.add(user4);
+        userService.add(new User("Ivan", "Klimov", "ivan@mail.ru", carService.getCarsList().get(0)));
+        userService.add(new User("Igor", "Belov", "igor@mail.ru", carService.getCarsList().get(1)));
+        userService.add(new User("Gleb", "Sharapov", "gleb@mail.ru", carService.getCarsList().get(2)));
+        userService.add(new User("Stepan", "Smirnov", "stepan@mail.ru", carService.getCarsList().get(3)));
 
         List<User> users = userService.getUsersList();
+
         for (User user : users) {
             System.out.println("Id = " + user.getId());
             System.out.println("First Name = " + user.getFirstName());
